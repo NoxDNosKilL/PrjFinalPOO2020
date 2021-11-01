@@ -1,0 +1,3 @@
+Como se puede observar en ProyectoBaseFinal, el profesor brinda una plantilla para
+el examen, pero no la utilizo puesto que no comparto la idea de generar inyecciones de SQL.
+El tiempo límite de esta prueba fue de 100 minutos.

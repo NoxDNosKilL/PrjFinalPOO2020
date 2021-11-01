@@ -1,0 +1,160 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package IU;
+
+import BEAN.Alumno;
+import Persistencia.DAO.AlumnoDAO;
+import Persistencia.Impl.AlumnoDAOImpl;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.table.DefaultTableModel;
+
+/**
+ *
+ * @author leo59
+ */
+public class SelAlumno extends javax.swing.JDialog {
+    private DefaultTableModel dtm;
+    private Alumno alu;
+    public SelAlumno(java.awt.Frame parent, boolean modal) {
+        super(parent, modal);
+        initComponents();
+        listarAlu();
+    }
+    
+     private void listarAlu(){
+        String cab[] = {"Id Alumno", "Apellidos","Nombres","Direccion","Estado"};
+        dtm = new DefaultTableModel(cab, 0);
+         try {
+            AlumnoDAO aDAO = new AlumnoDAOImpl();
+
+            List<Alumno> alumnos = aDAO.listar();
+            
+            alumnos.forEach(a->{
+                Vector fila = new Vector();
+                fila.add(a.getIdAlumno());
+                fila.add(a.getApellido());
+                fila.add(a.getNombre());
+                fila.add(a.getDirecc());
+                fila.add(a.getEstado());
+                dtm.addRow(fila);
+            });
+
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+         this.tblAlumno.setModel(dtm);
+    }
+     
+     
+     
+     public Alumno getAlumno(){
+         return this.alu;
+     }
+
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblAlumno = new javax.swing.JTable();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        tblAlumno.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        tblAlumno.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblAlumnoMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblAlumno);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(13, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void tblAlumnoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblAlumnoMouseClicked
+        // TODO add your handling code here:
+        int i = this.tblAlumno.getSelectedRow();
+        alu = new Alumno();
+        dtm = (DefaultTableModel) this.tblAlumno.getModel();
+        alu.setIdAlumno(Integer.valueOf(dtm.getValueAt(i,0).toString()));
+        System.out.println(alu.getIdAlumno());
+        alu.setNombre(dtm.getValueAt(i,2).toString());
+        System.out.println(alu.getNombre());
+        this.dispose();
+    }//GEN-LAST:event_tblAlumnoMouseClicked
+
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(SelAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(SelAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(SelAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(SelAlumno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the dialog */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                SelAlumno dialog = new SelAlumno(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        System.exit(0);
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblAlumno;
+    // End of variables declaration//GEN-END:variables
+}
